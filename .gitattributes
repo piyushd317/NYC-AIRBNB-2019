@@ -215,3 +215,70 @@ bar_vis.set_title('Hosts with the most listings in NYC')
 bar_vis.set_ylabel('Count of listings')
 bar_vis.set_xlabel('Host IDs')
 bar_vis.set_xticklabels(bar_vis.get_xticklabels(),rotation=45)
+
+#importing random forest regressor
+from sklearn.ensemble import RandomForestRegressor
+
+#choose 30 number of trees
+forest_reg=RandomForestRegressor(n_estimators = 30, random_state = 42)
+
+#fitting the training set
+forest_reg.fit(X_train_prepd,y_train)
+
+#making predictions
+forest_predictions=forest_reg.predict(X_train_prepd)
+
+#getting MSE and RMSE values
+forest_mse=mean_squared_error(y_train,forest_predictions)
+forest_rmse=np.sqrt(forest_mse)
+
+print("Mean squared error: %.3f" % forest_mse)
+print("Root mean squared error: %.3f" % forest_rmse)
+
+
+from sklearn.tree import export_graphviz
+from sklearn import tree
+# import graphviz
+
+#export_graphviz(tree_reg, out_file = "d1.dot",impurity =False, filled=True)
+outfile = tree.export_graphviz(tree_reg_vis, out_file = 'tree.dot',feature_names=dum_X_train.columns.tolist())
+
+from subprocess import call
+
+
+#importing random forest regressor
+from sklearn.ensemble import RandomForestRegressor
+
+#choose 30 number of trees
+forest_reg=RandomForestRegressor(n_estimators = 30, random_state = 42)
+
+#fitting the training set
+forest_reg.fit(X_train_prepd,y_train)
+
+#making predictions
+forest_predictions=forest_reg.predict(X_train_prepd)
+
+#getting MSE and RMSE values
+forest_mse=mean_squared_error(y_train,forest_predictions)
+forest_rmse=np.sqrt(forest_mse)
+
+print("Mean squared error: %.3f" % forest_mse)
+print("Root mean squared error: %.3f" % forest_rmse)
+
+#importing decision tree model
+from sklearn.tree import DecisionTreeRegressor
+
+#defining decision tree regressor
+tree_reg=DecisionTreeRegressor()
+#feeding X_train and y_train into the regressor
+tree_reg.fit(X_train_prepd,y_train)
+
+#making predictions on train set
+tree_predictions = tree_reg.predict(X_train_prepd)
+
+#getting MSE and RMSE values
+tree_mse=mean_squared_error(y_train,tree_predictions)
+tree_rmse=np.sqrt(tree_mse)
+
+print("Mean squared error: %.3f" % tree_mse)
+print("Root mean squared error: %.3f" % tree_rmse)
